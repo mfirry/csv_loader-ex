@@ -1,19 +1,17 @@
 defmodule CsvLoader do
-  alias KafkaProducerBrod
+  alias KafkaProducerKaffe
+
+  NimbleCSV.define(MyParser, separator: ",", escape: "\"")
 
   defmodule Brand do
     defstruct category: nil, brand: nil
 
-    # Implement the Jason encoder for the Brand struct
     defimpl Jason.Encoder do
       def encode(%CsvLoader.Brand{category: category, brand: brand}, opts) do
-        # Convert the struct into a map for encoding
         Jason.Encode.map(%{category: category, brand: brand}, opts)
       end
     end
-  end  
-
-  NimbleCSV.define(MyParser, separator: ",", escape: "\"")
+  end    
 
   def print_csv(file_path) do
     case File.read(file_path) do
@@ -33,6 +31,6 @@ defmodule CsvLoader do
   end
 
   defp send_to_kafka(brand) do
-    KafkaProducerBrod.send_brand_to_kafka(brand)
+    KafkaProducerKaffe.send_brand_to_kafka(brand)
   end
 end

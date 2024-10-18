@@ -22,7 +22,7 @@ defmodule CsvLoader.MixProject do
   defp deps do
     [
       {:nimble_csv, "~> 1.0"},
-      {:brod, "~> 3.16"},    # Add Brod for Kafka
+      {:kaffe, "~> 1.17"},
       {:jason, "~> 1.2"}     # Jason for JSON encoding
     ]
   end
